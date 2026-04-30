@@ -1,1 +1,11 @@
 Insert your documented code here
+cordic.v and cordictb.v results
+Angle = 90 degrees
+Cosine =           0 (0.0000)
+Sine   =           1 (1.0000)
+Angle = 45 degrees
+Cosine = 0.7071
+Sine   = 0.7071
+Angle = 30 degrees
+Cosine = 0.8660
+Sine   = 0.5000
