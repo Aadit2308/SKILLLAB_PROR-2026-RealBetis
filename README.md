@@ -88,8 +88,9 @@ In 1–2 paragraphs, explain:
 - what technologies are involved.
 
 **Response:**  
-`This project focuses on real-time roll and pitch estimation using data from the MPU6050 inertial measurement unit (IMU). The system reads accelerometer data through I2C using the Processing System (PS) and processes it using a hardware-accelerated CORDIC algorithm implemented on FPGA (Programmable Logic).
-The goal is to demonstrate efficient hardware-software co-design by offloading computationally intensive trigonometric operations (atan, sqrt) to FPGA, while data acquisition and control are handled in C using Vitis. This approach improves performance, reduces latency, and enables real-time orientation estimation suitable for robotics, drones, and embedded systems.`
+`This project implements roll and pitch estimation using MPU6050 sensor data. The sensor data is acquired using software developed in Vitis.
+The data is processed and sent to the Spartan-7 FPGA, where a CORDIC algorithm is implemented in hardware. The FPGA computes the roll and pitch angles efficiently using fixed-point arithmetic.
+The results are then displayed through a terminal interface. This setup demonstrates the use of FPGA as a hardware accelerator for computational tasks.`
 
 ---
 
@@ -101,8 +102,8 @@ List what inspired the project.
 
 | Source Type | Title / Link                                                        | What Inspired You                                                                         |
 | ----------- | ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `[Video]`   | `https://www.instagram.com/reel/DW4CT7WCDry/?igsh=cXg3dzAxYmdncDBo` | `How projection mapping can be used to create interactive digital + physical experiences` |
-|             |                                                                     |                                                                                           |
+| `[Video]`   | `https://youtu.be/m1e8IbDsIKw?si=r6b_8s5Hem0YE8sS` | `Detailed explanation of how CORDIC replaces expensive multiplications with simple bit-shifts and additions, which is essential for efficient FPGA-based hardware acceleration.`|
+|  `research paper`           |                                                                     |                                                                                           |
 |             |                                                                     |                                                                                           |
 
 ## 2.2 Original Twist
@@ -121,12 +122,12 @@ Additionally, the integration of Vivado (for hardware design) and Vitis (for sof
 
 Describe exactly how a user will use the project.Make it a story
 **Response:**  
-`The user powers on the system, which initializes the MPU6050 sensor and FPGA hardware. The system begins reading real-time accelerometer data through I2C communication.`
+`The user powers on the system, initializing the MPU6050 sensor and FPGA hardware.
+The MPU6050 continuously generates accelerometer data (ax, ay, az), which is read using software developed in Vitis.
+This data is processed and converted into fixed-point format in the software. The processed values are then sent to the Spartan-7 FPGA.`
 
-`This data is transferred to the Processing System (PS), where it is normalized and converted into fixed-point format. The processed data is then sent to the FPGA (Programmable Logic) via AXI interface, where the CORDIC algorithm computes roll and pitch angles.`
-
-`The computed angles are sent back to the PS and displayed on a terminal. As the user tilts the sensor, the system continuously updates and outputs real-time orientation values, demonstrating accurate roll and pitch estimation.`
-                                              
+`Inside the FPGA, a CORDIC algorithm computes roll and pitch angles using efficient shift-and-add operations.
+The computed angles are sent back and displayed on a terminal. As the user tilts the sensor, the system continuously updates the orientation in real time.`
 
 
 
@@ -207,22 +208,21 @@ Include:
 - app interaction if any.
 
 **Response:**  
-`The system takes input from the MPU6050 sensor, which provides accelerometer data. This data is read by the Processing System (PS) using I2C communication.`
+`The system takes input from the MPU6050 sensor, which provides accelerometer data (ax, ay, az).
+This data is acquired using software developed in Vitis running on the host system. The software processes the raw data and converts it into fixed-point format suitable for FPGA computation.`
 
-`The PS processes and normalizes the data, then sends it to the FPGA (Programmable Logic) through AXI interface. The FPGA implements a CORDIC algorithm to compute roll and pitch angles efficiently.`
+`The processed data is then sent to the Spartan-7 FPGA. The FPGA implements a CORDIC algorithm in hardware to compute roll and pitch angles efficiently.
+The computed angles are returned to the software and displayed on a terminal. The system continuously updates the output in real time as the sensor orientation changes.`
 
-`The computed angles are sent back to the PS, where they are displayed to the user via a terminal interface. The system continuously updates the orientation in real time as the sensor moves.`
 ## 5.3 Input / Output Map
 
 | System Part        | Type     | What It Does                                  |
 |-------------------|----------|-----------------------------------------------|
 | MPU6050           | Input    | Provides accelerometer data                   |
-| I2C Interface     | Input    | Transfers sensor data to PS                   |
-| Processing System | Process  | Normalizes and sends data to FPGA             |
-| FPGA (CORDIC)     | Process  | Computes roll and pitch using CORDIC          |
-| AXI Interface     | Transfer | Sends/receives data between PS and PL         |
-| Terminal Output   | Output   | Displays computed roll and pitch              |
-
+| I2C Interface     | Input    | Transfers data to host system                 |
+| Vitis Software    | Process  | Reads and processes sensor data               |
+| FPGA (CORDIC)     | Process  | Computes roll and pitch angles                |
+| Terminal Output   | Output   | Displays computed values                      |
 
 ---
 
@@ -271,24 +271,25 @@ Add a sketch with labels showing:
 # 7. Electronics Planning
 
 ## 7.1 Electronics Used
-| Component        | Quantity | Purpose                                      |
-|------------------|----------|----------------------------------------------|
-| FPGA Board (Zynq)| 1        | Main processing unit (PS + PL)               |
-| MPU6050          | 1        | Accelerometer and gyroscope sensor          |
-| Jumper Wires     | Few      | Connections                                 |
-| Power Supply     | 1        | Powering the system                         |
-| USB/UART         | 1        | Communication with PC                       |
+
+| Component              | Quantity | Purpose                          |
+|------------------------|----------|----------------------------------|
+| Spartan-7 FPGA Board   | 1        | Hardware computation (CORDIC)     |
+| MPU6050                | 1        | Motion sensor                    |
+| Jumper wires           | Few      | Connections                      |
+| USB Cable              | 1        | Power & programming              |
+
 ## 7.2 Wiring Plan
 
 Describe the main electrical connections.
 
 **sample Response:**  
-`The RASPI is connected to the motor driver (L298N) using four GPIO pins (18,19; 22,23) to control motor direction (IN1, IN2, IN3, IN4). Two PWM-capable pins (ENA and ENB; 25 and 26) are connected to control the speed of each motor.
-
-The motors are connected to the output terminals of the motor driver. The motor driver is powered directly by the battery pack (higher voltage), while the ESP32 receives regulated 5V from the buck converter.
-
-All components share a common ground to ensure stable operation. The projector and camera are connected to the laptop, which handles tracking and game logic separately.`
-
+`
+The MPU6050 sensor is connected using I2C communication (SDA, SCL, VCC, GND).
+Sensor data is read externally using Vitis-based software.
+The processed data is sent to the Spartan-7 FPGA, where the CORDIC module computes roll and pitch values.
+The output is transmitted to a terminal using UART communication.
+`
 ## 7.3 Circuit Diagram/architecture diagram
 
 Insert a hand-drawn or software-made circuit diagram.
@@ -298,14 +299,14 @@ Insert a hand-drawn or software-made circuit diagram.
 <img width="867" height="1156" alt="" src="" />
 
 
-# 7.4. Power Plan
+## 7.4 Power Plan
 
-| Question         | Response                                                                                                                                          |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Power source     | `Battery (Li-ion pack)`                                                                                                                           |
-| Voltage required | `~6–8.4V for motors (via driver), stepped down to 5V for ESP32 (buck converter)`                                                                  |
-| Current concerns | `Motors can draw high current under load, which may cause voltage drops affecting ESP32 and WiFi stability`                                       |
-| Safety concerns  | `Avoid over-discharging Li-ion batteries, ensure proper voltage regulation, prevent short circuits, and secure wiring to avoid loose connections` |
+| Question         | Response |
+|------------------|----------|
+| Power source     | USB power supply (from PC/laptop to FPGA board) |
+| Voltage required | 5V input to FPGA board; onboard regulators provide 3.3V for MPU6050 and I2C logic |
+| Current concerns | FPGA boards can draw significant current depending on logic usage. The MPU6050 consumes very low current (~3–4 mA), but overall system current depends on FPGA activity. Ensure stable USB power to avoid resets or data glitches |
+| Safety concerns  | Ensure correct voltage levels (MPU6050 operates at 3.3V logic), avoid direct 5V connections to sensor pins, maintain proper grounding, and prevent short circuits during wiring |
 
 ---
 
@@ -313,13 +314,15 @@ Insert a hand-drawn or software-made circuit diagram.
 
 ## 8.1 Software Tools
 
-| Tool / Platform                | Purpose                                        |
-| ------------------------------ | ---------------------------------------------- |
-| `[MicroPython]`                | `Control ESP32`                                |
-| `[Python/PyGame/OpenCV]`       | `Track markers, game logic, create projection` |
-| `[Fusion/Blender/Illustrator]` | `[Prototyping structure]`                      |
-|                                |                                                |
+## 8.1 Software Tools
 
+| Tool / Platform | Purpose |
+|-----------------|--------|
+| Vivado | Design and implement FPGA hardware (CORDIC) |
+| Vitis | Sensor data acquisition and communication |
+| C Programming | Data processing |
+| I2C Protocol | MPU6050 communication |
+| UART Terminal | Display output |
 ## 8.2 Software Logic/Algorithm
 
 Describe what the code must do.
@@ -335,22 +338,16 @@ Include:
 - reset behavior.
 
 **Response:**  
-`
+## 8.2 Software Logic  
 
-- **Sample Startup behavior:**  
-  The Raspi/FPGA initializes motor pins, PWM control, and starts a WiFi access point with a web server. The laptop initializes camera input, tracking system, and projection mapping.
-- **Input handling:**  
-  Movement commands are received from the laptop (pygame sends http requests)
-- **Sensor reading:**  
-  The camera continuously captures frames, and OpenCV detects ArUco markers to determine the car’s position and orientation.
-- **Decision logic:**  
-  The system maps the car’s position into a virtual coordinate system and checks for nearby obstacles or collisions. If movement is valid, the command is allowed; if not, it is blocked or replaced with a feedback action (like a slight shake).
-- **Output behavior:**  
-  The ESP32 drives the motors using PWM signals to control speed and direction. The projector displays the updated game environment, including obstacles, targets, and feedback visuals.
-- **Communication logic:**  
-  The laptop sends HTTP requests (e.g., `/forward`, `/left`) to the ESP32 over WiFi. The ESP32 parses these commands and executes motor actions.
-- **Reset behavior:**  
-  If no command is received within a short timeout, the ESP32 stops the motors. The game resets when a level is completed or restarted.`
+- Initialize MPU6050 sensor  
+- Read accelerometer data (ax, ay, az)  
+- Normalize values  
+- Convert to fixed-point format  
+- Send data to FPGA  
+- FPGA computes roll and pitch using CORDIC  
+- Receive output  
+- Display results on terminal  
 
 ## 8.3 Code Flowchart
 
@@ -378,85 +375,78 @@ Suggested sequence:
 
 ## 9.1 Full BOM
 
-| Item                             | Quantity | In Kit? | Need to Buy? | Estimated Cost | Material / Spec               | Why This Choice?          |
-| -------------------------------- | --------:| ------- | ------------ | --------------:| ----------------------------- | ------------------------- |
-| `[RASPI]`                        | `1`      | `Yes`   | `No`         | `0`            | `38 Pin ESP32`                | `[To control components]` |
-| `[Motor Driver]`                 | `[1]`    | `[Yes]` | `[No]`       | `0`            | `[LN296]`                     | `[To drive both motors]`  |
-| `[DC Motors and wheel]`          | `[2]`    | `[No]`  | `[Yes]`      | `[150]`        | `[BO Motors and 6 cm wheels]` | `[high torque motors]`    |
-| `[Buck Converter]`               | `[1]`    | `[No]`  | `[Yes]`      | `[75]`         |                               |                           |
-| `[Li-ion batteries with holder]` | `[1]`    | `[No]`  | `[Yes]`      | `[200]`        |                               |                           |
+| Item                  | Quantity | In Kit? | Need to Buy? | Estimated Cost | Material / Spec         | Why This Choice? |
+|-----------------------|----------|---------|--------------|----------------|-------------------------|------------------|
+| Spartan-7 FPGA Board  | 1        | Yes     | No           | 0              | Xilinx Spartan-7        | Hardware computation (CORDIC) |
+| MPU6050 Sensor        | 1        | Yes     | No           | 0              | 3-axis accel + gyro     | Motion sensing |
+| Jumper Wires          | Few      | Yes     | No           | 0              | Male-Female wires       | Connections |
+| USB Cable             | 1        | Yes     | No           | 0              | USB                     | Power & programming |
+| Laptop / PC           | 1        | Yes     | No           | 0              | -                       | Runs Vivado & Vitis |
+
+---
 
 ## 9.2 Material Justification
 
-Explain why you selected your main materials and components.
+`The Spartan-7 FPGA was selected due to its capability to implement hardware-based algorithms efficiently. It enables parallel processing and fast computation, making it ideal for implementing the CORDIC algorithm.`
 
-**Response:**  
-`DC motors (BO motors) were chosen instead of servos or steppers because the system requires continuous rotation for movement rather than precise angular control (Previously, we were considering using steppers as we were planning on tracking movement on the ESP using its relative position from an origin, but since we're using a camera now, this is not required). A motor driver (L298N) was used to allow bidirectional control and speed variation using PWM.`
+`The MPU6050 sensor was chosen because it provides reliable accelerometer data required for roll and pitch estimation, and it communicates easily via I2C.
+Jumper wires and USB connections were used for simplicity and ease of prototyping.`
 
+---
 
-## 9.3 Items You chose
+## 9.3 Items You Chose
 
-| Item                 | Why Needed               | Purchase Link | Latest Safe Date to Procure | Status       |
-| -------------------- | ------------------------ | ------------- | --------------------------- | ------------ |
-| `BO Motors + Wheels` | `Drive system for car`   | `robu.in`     | `15th April`                | `[Received]` |
-| `Buck Converter`     | `Stable power for ESP32` | `local store` | `before testing`            | `[Received]` |
-| `Li-ion Batteries`   | `Portable power`         | `local store` | `before testing`            | `Recieved`   |
+| Item           | Why Needed            | Status     |
+|----------------|----------------------|------------|
+| MPU6050        | Sensor input         | Available  |
+| FPGA Board     | Computation          | Available  |
+| Wires          | Connections          | Available  |
 
 ## 9.4 Budget Summary
 
-| Budget Item           | Estimated Cost              |
-| --------------------- | ---------------------------:|
-| Electronics           | `[400]`                     |
-| Mechanical parts      | `[200]`                     |
-| Fabrication materials | `[0 (Available on campus)]` |
-| Purchased extras      | `[0]`                       |
-| Contingency           | `[300]`                     |
-| **Total**             | `[900]`                     |
+| Budget Item     | Estimated Cost |
+|-----------------|----------------|
+| Electronics     | 0              |
+| Additional Parts| 0              |
+| Total           | 0              |
+
+---
 
 ## 9.5 Budget Reflection
 
-If your cost is too high, what can be simplified, removed, substituted, or shared?
+`The project used components available in the lab, minimizing cost. No additional purchases were required.`
 
-**Response:**  
-
----
 
 # 10. Planning the Work
 
 ## 10.1 Team Working Agreement
 
-Write how your team will work together.
+`The team divided tasks based on individual strengths. Hardware design was handled by members experienced in FPGA and electronics, while software development and documentation were managed by others.`
 
-Include:
+`Regular discussions were held to track progress and resolve issues. Git was used for version control and documentation updates.
+If a task was delayed, responsibilities were redistributed to ensure timely completion.`
 
-- how tasks are divided,
-- how decisions are made,
-- how progress will be checked,
-- what happens if a task is delayed,
-- how documentation will be maintained.
-
-**Response:**  
-
+---
 
 ## 10.2 Task Breakdown
 
-| Task ID | Task                    | Owner    | Estimated Hours | Deadline     | Dependency | Status |
-| ------- | ----------------------- | -------- | ---------------:| ------------ | ---------- | ------ |
-| T1      | `[Finalize concept]`    | `[Both]` | `2`             | `1st April`  | `None`     | `Done` |
+| Task ID | Task                    | Owner        | Status |
+|---------|-------------------------|--------------|--------|
+| T1      | MPU6050 interfacing     | Himanshu     | Done   |
+| T2      | CORDIC implementation   | Aadit        | Done   |
+| T3      | FPGA integration        | Shivam       | Done   |
+| T4      | Testing & validation    | Team         | Done   |
 
+---
 
 ## 10.3 Responsibility Split
 
-| Area                 | Main Owner     | Support Owner |
-| -------------------- | ----------     | ------------- |
-| Concept              | `[Mrugendra]`  | `[Jyoti]`     |
-| Electronics          | `[]`           | `[]`          |
-| Coding               | `[]`           | `[]`          |
-| Mechanical build     | `[]`           | `[]`          |
-| Testing              | `[]`           | `[]`          |
-| Documentation        | `[]`           | `[]`          |
-
----
+| Area          | Main Owner   | Support |
+|--------------|-------------|---------|
+| Electronics  | Aadit       | Shivam  |
+| Coding       | Himanshu    | Team    |
+| Testing      | Team        | -       |
+| Documentation| Himanshu    | Jha     |
 
 # 11 hour Milestones
 
@@ -519,34 +509,34 @@ Expected outcomes:
 
 ## 13.1 Risk Register
 
-| Risk                                                            | Type         | Likelihood | Impact   | Mitigation Plan                                                                       | Owner                |
-| --------------------------------------------------------------- | ------------ | ---------- | -------- | ------------------------------------------------------------------------------------- | -------------------- |
-| WiFi connection between laptop and ESP32 becomes unstable       | `Technical`  | `Medium`   | `High`   | Keep ESP32 close, ensure stable power supply, reduce network load, add fail-safe stop | `[Gopal]`           |
+| Risk                     | Type      | Likelihood | Impact | Mitigation |
+|--------------------------|-----------|------------|--------|-----------|
+| Incorrect CORDIC scaling | Technical | Medium     | High   | Validate with software results |
+| Sensor noise             | Technical | High       | Medium | Apply filtering |
 
+---
 
 ## 13.2 Biggest Unknown Right Now
 
-What is the single biggest uncertainty in your project at this stage?
-
-**Response:**  
-
-
+The main uncertainty is ensuring correct fixed-point scaling and accurate interpretation of CORDIC output values.
 ---
 
 # 14. Testing 
 
 ## 14.1 Technical Testing Plan
 
-| What Needs Testing     | How You Will Test It                                                                 | Success Condition                                                                                    |
-| ---------------------- | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
-| `[Wifi connection]`    | `[Check if motor spins via app button]`                                              | `[Both motors accurately respond to wifi signals]`                                                   |
-                       |
+| What Needs Testing | How You Will Test It | Success Condition |
+|-------------------|----------------------|------------------|
+| MPU6050 reading   | Compare with expected orientation | Accurate readings |
+| CORDIC output     | Compare with software calculation | Matching values |
+
+---
+
 ## 14.2 Testing and Debugging Log
 
-| Date          | Problem Found                         | Type         | What You Tried                                | Result               | Next Action                                    |
-| ------------- | ------------------------------------- | ------------ | --------------------------------------------- | -------------------- | ---------------------------------------------- |
-| `18th April`  | `Car not balancing properly`          | `Mechanical` | `Add low-friction caster support to one side` | `Worked`             | `improve caster structure`                     |
-
+| Date | Problem | Solution | Result |
+|------|--------|---------|--------|
+| Day 1 | Incorrect angle | Fixed scaling | Working |
 
 ## 14.3 Playtesting Notes
 
@@ -610,74 +600,84 @@ Suggested images:
 
 # 17. Final Outcome
 
-## 17.1 Final Description
+## 17.1 Final Description  
 
-Describe the final version of your project.
+`The final system successfully implements real-time roll and pitch estimation using MPU6050 sensor data. The accelerometer data is processed using software and passed to the Spartan-7 FPGA.`
 
-**Response:**  
+`The FPGA computes the angles using a hardware-based CORDIC algorithm, enabling efficient and fast trigonometric calculations. The output is displayed in real time on a terminal, reflecting the orientation of the sensor.`
 
+`This project demonstrates the effectiveness of FPGA as a hardware accelerator for computational tasks.`
 
-## 17.2 What Works Well
+---
 
+## 17.2 What Works Well  
 
+- Real-time roll and pitch computation  
+- Accurate CORDIC implementation  
+- Efficient hardware-based processing  
+- Stable communication between system and FPGA  
 
-## 17.3 What Still Needs Improvement
+---
 
+## 17.3 What Still Needs Improvement  
 
-## 17.4 What Changed From the Original Plan
+- Sensor noise reduction using advanced filtering (Kalman / complementary filter)  
+- More accurate fixed-point optimization  
+- Graphical visualization of output  
+- Faster data transfer mechanism  
 
-How did the project change from the initial idea?
+---
 
-**Response:**  
+## 17.4 What Changed From the Original Plan  
 
+`Initially, the project focused on general orientation estimation. During development, the focus shifted towards optimizing computation using FPGA-based CORDIC.`
 
+ `The final system emphasizes hardware acceleration and efficient implementation rather than just basic angle calculation.`
+ 
 ---
 
 # 18. Reflection
 
-## 18.1 Team Reflection
+## 18.1 Team Reflection  
 
-What did your team do well?  
-What slowed you down?  
-How well did you manage time, tasks, and responsibilities?
+`The team worked collaboratively by dividing tasks based on individual strengths. Regular discussions helped in resolving technical issues quickly.
+Time management was effective, and documentation was maintained continuously throughout the project.`
 
-**Response:**  
+---
 
+## 18.2 Technical Reflection  
 
-## 18.2 Technical Reflection
+We gained hands-on experience in:
 
-What did you learn about:
+- FPGA design using Vivado  
+- Sensor interfacing using I2C  
+- Fixed-point arithmetic  
+- Hardware implementation of algorithms (CORDIC)  
+- Debugging hardware-software interaction  
 
-- electronics,
-- coding,
-- mechanisms,
-- fabrication,
-- integration?
+This project improved our understanding of real-time embedded systems.
 
-**Response:**  
+---
 
+## 18.3 Design Reflection  
 
-## 18.3 Design Reflection
+We learned that:
 
-What did you learn about:
+- Hardware acceleration significantly improves performance  
+- Proper system design is essential for accuracy  
+- Debugging requires step-by-step validation  
+- Iterative improvements are necessary for stability  
 
-- designing ,
-- delight,
-- clarity,
-- physical interaction,
-- understanding,
-- iteration?
+---
 
-**Response:**  
+## 18.4 If You Had One More Hour  
 
+If given more time, we would:
 
-## 18.4 If You Had One More hour
-
-What would you improve next?
-
-**Response:**  
-
-` `
+- Implement a complementary or Kalman filter for improved accuracy  
+- Add graphical visualization (GUI) for better understanding  
+- Optimize FPGA design for faster computation  
+- Improve overall system robustness  
 
 ---
 
