@@ -57,26 +57,27 @@ By the final review, this README should clearly show:
 
 ## 1.1 Studio / Group Name
 
-`Project^2`
+`RealBetis`
 
 ## 1.2 Team Members
 
 | Name                  | Primary Role                    | Secondary Role   | Strengths Brought to the Project |
 | --------------        | ------------------------------- | --------------   | -------------------------------- |
-| `Mrugendra Vasmatkar` | `[Electronics / Coding / App ]` | `Documentation`  | `Documentation, Gift of Gab `|
-| `Jyoti Bagate`        | `[Electronics / Fabrication]`   | `[Coding]`       | `Material Handling, Hardware`    |
+| `Himanshu Rathod`     | `[Electronics / Coding / App ]` | `git`            | `Documentation, Gift of Gab `|
+| `Aadit Pradhan`       | `[Electronics / Fabrication]`   | `[Coding]`       | `Material Handling, Hardware`    |
+| `Shivam Sharma`       | `[Electronics / Fabrication]`   | `[Coding]`       | `Material Handling, Hardware`    |
+| `Keshavanandan Jha`   | `[Electronics / Fabrication]`   | `[documentation]`| `Material Handling, Hardware`    |
+
 
 ## 1.3 Project Title
 
-`"Project Project"`
-
-`(because Project-or)`
+`"Roll pitch Estimation using Cordic Algorithm"`
 
 <img width="1600" height="1131" alt="image" src="https://github.com/user-attachments/assets/c64bfbd4-b3b7-43d9-83ad-c203a5aa11bc" />
 
 ## 1.4 One-Line Pitch
 
-`A projected, fully customizable time portal where engineering education is done through PUBG battlefield in the comfort of our home`
+`Real-time roll and pitch estimation using FPGA-based CORDIC acceleration with MPU6050 sensor data acquisition.`
 
 ## 1.5 Expanded Project Idea
 
@@ -87,7 +88,8 @@ In 1–2 paragraphs, explain:
 - what technologies are involved.
 
 **Response:**  
-`A projected and fully customizable time portal can transform engineering education into an immersive PUBG-style battlefield experience from the comfort of home. In this environment, students can learn engineering concepts by entering a virtual battlefield where challenges, obstacles, and missions are designed around real technical problems. Instead of passively studying theory, learners actively apply concepts such as electronics, coding, sensors, robotics, mechanics, and system design to complete missions, solve problems, and progress through different levels. This approach makes engineering education more interactive, engaging, and practical by combining gaming, simulation, and hands-on problem-solving in a familiar and exciting format.`
+`This project focuses on real-time roll and pitch estimation using data from the MPU6050 inertial measurement unit (IMU). The system reads accelerometer data through I2C using the Processing System (PS) and processes it using a hardware-accelerated CORDIC algorithm implemented on FPGA (Programmable Logic).
+The goal is to demonstrate efficient hardware-software co-design by offloading computationally intensive trigonometric operations (atan, sqrt) to FPGA, while data acquisition and control are handled in C using Vitis. This approach improves performance, reduces latency, and enables real-time orientation estimation suitable for robotics, drones, and embedded systems.`
 
 ---
 
@@ -108,7 +110,8 @@ List what inspired the project.
 What makes your project original?
 
 **Response:**  
-
+`Unlike traditional implementations that compute roll and pitch using software floating-point operations, this project uses a hardware-accelerated CORDIC algorithm on FPGA. This significantly improves computational efficiency and demonstrates real-time embedded system optimization using hardware-software co-design.
+Additionally, the integration of Vivado (for hardware design) and Vitis (for software control) showcases a complete FPGA-based embedded workflow.`
 
 ---
 
@@ -118,8 +121,12 @@ What makes your project original?
 
 Describe exactly how a user will use the project.Make it a story
 **Response:**  
+`The user powers on the system, which initializes the MPU6050 sensor and FPGA hardware. The system begins reading real-time accelerometer data through I2C communication.`
 
-                                                  |
+`This data is transferred to the Processing System (PS), where it is normalized and converted into fixed-point format. The processed data is then sent to the FPGA (Programmable Logic) via AXI interface, where the CORDIC algorithm computes roll and pitch angles.`
+
+`The computed angles are sent back to the PS and displayed on a terminal. As the user tilts the sensor, the system continuously updates and outputs real-time orientation values, demonstrating accurate roll and pitch estimation.`
+                                              
 
 
 
@@ -136,12 +143,24 @@ Describe exactly how a user will use the project.Make it a story
 What is the smallest version of this project that still delivers the core experience?
 
 **Response:**  
+The minimum usable version includes:
+- Successful reading of MPU6050 accelerometer data via I2C
+- Basic roll and pitch calculation using software (C)
+- Integration of CORDIC IP in FPGA
+- Sending input values to CORDIC and receiving computed angles
+- Displaying roll and pitch values in real-time
 
+This version proves the core concept of hardware-accelerated orientation estimation.
 
 ## 4.3 Stretch Features
 
 What features are nice to have but not essential?
-
+- Complementary filter using gyroscope + accelerometer
+- Kalman filter for improved accuracy
+- Real-time graphical visualization of orientation
+- AXI-Stream based high-speed data transfer
+- Interrupt-based communication instead of polling
+- Integration with mobile or PC dashboard
 
 ---
 
@@ -157,21 +176,21 @@ Check all that apply.
 
 - [x] Sensor-based
 
-- [x] App-connected
+- [ ] App-connected
 
-- [x] Motorized
+- [ ] Motorized
 
 - [ ] Sound-based
 
-- [x] Light-based
+- [ ] Light-based
 
-- [x] Screen/UI-based
+- [ ] Screen/UI-based
 
-- [x] Fabricated structure
+- [ ] Fabricated structure
 
-- [x] Game logic based
+- [ ] Game logic based
 
-- [x] Installation
+- [ ] Installation
 
 - [ ] Other:
 
@@ -188,10 +207,21 @@ Include:
 - app interaction if any.
 
 **Response:**  
+`The system takes input from the MPU6050 sensor, which provides accelerometer data. This data is read by the Processing System (PS) using I2C communication.`
 
+`The PS processes and normalizes the data, then sends it to the FPGA (Programmable Logic) through AXI interface. The FPGA implements a CORDIC algorithm to compute roll and pitch angles efficiently.`
+
+`The computed angles are sent back to the PS, where they are displayed to the user via a terminal interface. The system continuously updates the orientation in real time as the sensor moves.`
 ## 5.3 Input / Output Map
 
-| System Part                              | Type            | What It Does                                                               |
+| System Part        | Type     | What It Does                                  |
+|-------------------|----------|-----------------------------------------------|
+| MPU6050           | Input    | Provides accelerometer data                   |
+| I2C Interface     | Input    | Transfers sensor data to PS                   |
+| Processing System | Process  | Normalizes and sends data to FPGA             |
+| FPGA (CORDIC)     | Process  | Computes roll and pitch using CORDIC          |
+| AXI Interface     | Transfer | Sends/receives data between PS and PL         |
+| Terminal Output   | Output   | Displays computed roll and pitch              |
 
 
 ---
@@ -241,17 +271,13 @@ Add a sketch with labels showing:
 # 7. Electronics Planning
 
 ## 7.1 Electronics Used
-
-| Component                 | Quantity | Purpose                               |
-| ------------------------- | --------:| ------------------------------------- |
-| `[Raspi/FPGA]`                 | `1`      | `[Main controller]`                   |
-| `[L298N Motor Driver]`    | `1`      | `[Control Motors]`                    |
-| `[BO Motors]`             | `2`      | `[Rotate wheels]`                     |
-| `[Buck Converter]`        | `1`      | `[Power ESP32]`                       |
-| `[Li Ion Battery Pack]`   | `2`      | `[Power]`                             |
-| `[Projector]`             | `1`      | `[Display obstacles]`                 |
-| `Camera (Webcam / Phone)` | `1`      | `[Tracks car position using markers]` |
-
+| Component        | Quantity | Purpose                                      |
+|------------------|----------|----------------------------------------------|
+| FPGA Board (Zynq)| 1        | Main processing unit (PS + PL)               |
+| MPU6050          | 1        | Accelerometer and gyroscope sensor          |
+| Jumper Wires     | Few      | Connections                                 |
+| Power Supply     | 1        | Powering the system                         |
+| USB/UART         | 1        | Communication with PC                       |
 ## 7.2 Wiring Plan
 
 Describe the main electrical connections.
