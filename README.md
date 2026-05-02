@@ -136,8 +136,9 @@ The computed angles are sent back and displayed on a terminal. As the user tilts
 # 4. Definition of Success
 
 ## 4.1 Definition of “Usable”
+**Response:**  
 
-
+`A usable system is one that can reliably read sensor data, process it, and display correct roll and pitch angles in real time without crashes or major delays.`
 
 ## 4.2 Minimum Usable Version
 
@@ -261,10 +262,10 @@ Add a sketch with labels showing:
 
 | Dimension        | Value   |
 | ---------------- | ------- |
-| Length           | `16 cm` |
-| Width            | `16 cm` |
-| Height           | `8 cm`  |
-| Estimated weight | `400 g` |
+| Length           | `260 mm` |
+| Width            | `240 mm` |
+| Height           | `50 mm`  |
+| Estimated weight | `6g` |
 
 ---
 
@@ -311,8 +312,6 @@ Insert a hand-drawn or software-made circuit diagram.
 ---
 
 # 8. Software Planning/
-
-## 8.1 Software Tools
 
 ## 8.1 Software Tools
 
@@ -444,9 +443,9 @@ If a task was delayed, responsibilities were redistributed to ensure timely comp
 | Area          | Main Owner   | Support |
 |--------------|-------------|---------|
 | Electronics  | Aadit       | Shivam  |
-| Coding       | Himanshu    | Team    |
+| Coding       | Shivam    | Team    |
 | Testing      | Team        | -       |
-| Documentation| Himanshu    | Jha     |
+| Documentation| Himanshu    | Aadit    |
 
 # 11 hour Milestones
 
