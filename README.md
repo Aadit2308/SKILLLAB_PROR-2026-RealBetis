@@ -63,7 +63,7 @@ By the final review, this README should clearly show:
 
 | Name                  | Primary Role                    | Secondary Role   | Strengths Brought to the Project |
 | --------------        | ------------------------------- | --------------   | -------------------------------- |
-| `Himanshu Rathod`     | `[Electronics / Documentation ]` | `git`            | `Documentation, Git`|
+| `Himanshu Rathod`     | `[Electronics / Documentation ]` | `Git`            | `Documentation, Git`|
 | `Aadit Pradhan`       | `[Electronics / Fabrication]`   | `[Coding]`       | `Material Handling, Hardware`    |
 | `Shivam Sharma`       | `[Electronics / Fabrication]`   | `[Coding]`       | `Material Handling, Hardware`    |
 | `Keshavanandan Jha`   | `[Electronics / Documentation]`   | `[documentation]`| `Documentation,Diagrams`    |
@@ -73,7 +73,7 @@ By the final review, this README should clearly show:
 
 `"Roll pitch Estimation using Cordic Algorithm"`
 
-<img width="1600" height="1131" alt="image" src="https://github.com/user-attachments/assets/c64bfbd4-b3b7-43d9-83ad-c203a5aa11bc" />
+<img width="1600" height="1131" alt="image" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/title.jpeg" />
 
 ## 1.4 One-Line Pitch
 
@@ -103,7 +103,7 @@ List what inspired the project.
 | Source Type | Title / Link                                                        | What Inspired You                                                                         |
 | ----------- | ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
 | `[Video]`   | `https://youtu.be/m1e8IbDsIKw?si=r6b_8s5Hem0YE8sS` | `Detailed explanation of how CORDIC replaces expensive multiplications with simple bit-shifts and additions, which is essential for efficient FPGA-based hardware acceleration.`|
-|  `Research paper`           |`https://www.google.com/search?q=https://doi.org/10.1093/comjnl/bxr012 `       | `This paper provides a breakthrough for high-precision hardware by reducing the iteration count to $2n+3$ cycles for $n$-digit decimal operands through a "selection by rounding" technique.`                                                                                          |
+|  `Research paper`           |`https://www.google.com/search?q=https://doi.org/10.1093/comjnl/bxr012 `       | `This paper provides a breakthrough for high-precision hardware by reducing the iteration count to 2n+3 cycles for n-digit decimal operands through a "selection by rounding" technique.`                                                                                          |
 |             |                                                                     |                                                                                           |
 
 ## 2.2 Original Twist
@@ -122,12 +122,12 @@ Additionally, the integration of Vivado (for hardware design) and Vitis (for sof
 
 Describe exactly how a user will use the project.Make it a story
 **Response:**  
-`The user powers on the system, initializing the MPU6050 sensor and FPGA hardware.
-The MPU6050 continuously generates accelerometer data (ax, ay, az), which is read using software developed in Vitis.
-This data is processed and converted into fixed-point format in the software. The processed values are then sent to the Spartan-7 FPGA.`
-
-`Inside the FPGA, a CORDIC algorithm computes roll and pitch angles using efficient shift-and-add operations.
-The computed angles are sent back and displayed on a terminal. As the user tilts the sensor, the system continuously updates the orientation in real time.`
+`A user integrates the system into a small drone prototype and powers it on. As the drone initializes, the MPU6050 sensor begins capturing motion and orientation data, while the FPGA is ready to process it in real time.
+Before takeoff, the user places the drone on a flat surface and checks the terminal output. The roll and pitch values are close to zero, confirming proper calibration.
+As the drone lifts off, slight tilts occur due to air disturbances. Instantly, the system detects these changes, and the FPGA computes updated roll and pitch values. The user monitors these values on the terminal to understand the drone’s orientation.
+During flight, when the drone tilts forward to move ahead, the pitch value increases. When it tilts sideways to change direction, the roll value changes accordingly. The real-time feedback helps the user analyze how the drone maintains balance.
+If the drone becomes unstable, the user can observe rapid changes in roll and pitch, helping in debugging or improving control algorithms.
+By the end of the flight, the user clearly sees how real-time orientation estimation using FPGA acceleration plays a crucial role in drone stability and navigation.`
 
 
 
@@ -148,7 +148,6 @@ What is the smallest version of this project that still delivers the core experi
 The minimum usable version includes:
 - Successful reading of MPU6050 accelerometer data via I2C
 - Basic roll and pitch calculation using software (C)
-- Integration of CORDIC IP in FPGA
 - Sending input values to CORDIC and receiving computed angles
 - Displaying roll and pitch values in real-time
 
@@ -220,7 +219,6 @@ The computed angles are returned to the software and displayed on a terminal. Th
 | System Part        | Type     | What It Does                                  |
 |-------------------|----------|-----------------------------------------------|
 | MPU6050           | Input    | Provides accelerometer data                   |
-| I2C Interface     | Input    | Transfers data to host system                 |
 | Vitis Software    | Process  | Reads and processes sensor data               |
 | FPGA (CORDIC)     | Process  | Computes roll and pitch angles                |
 | Terminal Output   | Output   | Displays computed values                      |
@@ -234,28 +232,21 @@ The computed angles are returned to the software and displayed on a terminal. Th
 Add an early sketch of the full idea.
 
 **Insert image below:**  
-<img width="1200" height="1000" alt="image" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/sketch.jpeg" />
-
-Example:
-
-```md
-
-```
-
+<img width="1200" height="1000" alt="image" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/sketch2.jpeg" />
 
 
 ## 6.2 Labeled Build Sketch/architecture/flow diagram/algorithm
 
 Add a sketch with labels showing:
 
-- structure,
+- structure, 
 - electronics placement,
 - user touch points,
 - moving parts,
 - output elements.
 
 **Insert image below:**  
-<img width="867" height="1156" alt="" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/block.jpeg" />
+<img width="700" height="900" alt="" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/block.jpeg" />
 
 
 ## 6.3 Approximate Dimensions
@@ -296,8 +287,8 @@ The output is transmitted to a terminal using UART communication.
 Insert a hand-drawn or software-made circuit diagram.
 
 **Insert image below:**  
-`[Upload image and link here]`
-<img width="867" height="1156" alt="" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/pin.jpeg" />
+
+<img width="500" height="800" alt="" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/pin.jpeg" />
 
 
 ## 7.4 Power Plan
@@ -321,22 +312,8 @@ Insert a hand-drawn or software-made circuit diagram.
 | Vitis | Sensor data acquisition and communication |
 | C Programming | Data processing |
 | I2C Protocol | MPU6050 communication |
-| UART Terminal | Display output |
-## 8.2 Software Logic/Algorithm
+| Teraterm | Display output |
 
-Describe what the code must do.
-
-Include:
-
-- startup behavior,
-- input handling,
-- sensor reading,
-- decision logic,
-- output behavior,
-- communication logic,
-- reset behavior.
-
-**Response:**  
 ## 8.2 Software Logic  
 
 - Initialize MPU6050 sensor  
@@ -364,8 +341,8 @@ Suggested sequence:
 - error handling.
 
 **Insert image below:**  
-<img width="1600" height="1200" alt="image" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/flow.jpeg" />
-<img width="1600" height="1200" alt="image" src="" />
+<img width="600" height="900" alt="image" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/flowc.jpeg" />
+
 
 
 
@@ -378,7 +355,7 @@ Suggested sequence:
 |-----------------------|----------|---------|--------------|----------------|-------------------------|------------------|
 | Spartan-7 FPGA Board  | 1        | Yes     | No           | 0              | Xilinx Spartan-7        | Hardware computation (CORDIC) |
 | MPU6050 Sensor        | 1        | Yes     | No           | 0              | 3-axis accel + gyro     | Motion sensing |
-| Jumper Wires          | Few      | Yes     | No           | 0              | Male-Female wires       | Connections |
+| Jumper Wires          | 4     | Yes     | No           | 0              | Male-Female wires       | Connections |
 | USB Cable             | 1        | Yes     | No           | 0              | USB                     | Power & programming |
 | Laptop / PC           | 1        | Yes     | No           | 0              | -                       | Runs Vivado & Vitis |
 
@@ -403,11 +380,11 @@ Jumper wires and USB connections were used for simplicity and ease of prototypin
 
 ## 9.4 Budget Summary
 
-| Budget Item     | Estimated Cost |
-|-----------------|----------------|
-| Electronics     | 0              |
-| Additional Parts| 0              |
-| Total           | 0              |
+| Component              | Quantity | Approx Cost (INR) | Total Cost (INR) |
+|------------------------|----------|-------------------|------------------|
+| Spartan-7 FPGA Board   | 1        | 8000        | 0 (Provided by lab) |
+| MPU6050 Sensor         | 1        | 150          | 0 (Provided by lab) |
+| Jumper Wires           | 4      | 10              | 0 (Provided by lab) |
 
 ---
 
@@ -447,7 +424,7 @@ If a task was delayed, responsibilities were redistributed to ensure timely comp
 | Coding       | Shivam    | Team    |
 | Testing      | Team        | -       |
 | Documentation| Himanshu    | Aadit    |
-|git| Himanshu    | keshav    |
+|Git| Himanshu    | keshav    |
 
 
 # 11 hour Milestones
@@ -521,7 +498,7 @@ Expected outcomes:
 
 ## 13.2 Biggest Unknown Right Now
 
-`The main uncertainty is ensuring correct fixed-point scaling and accurate interpretation of CORDIC output values.``
+`The main uncertainty is ensuring correct fixed-point scaling and accurate interpretation of CORDIC output values and AXL4-lite IP implementation.`
 
 ---
 
@@ -600,9 +577,9 @@ Suggested images:
 - mechanism test,
 - app screenshot,
 - final build.
-<img width="960" height="1280" alt="WhatsApp Image 2026-04-24 at 9 46 02 AM (1)" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/build2.jpeg" />
-<img width="960" height="1280" alt="WhatsApp Image 2026-04-24 at 9 46 02 AM (1)" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/build1.jpeg" />
-<img width="960" height="1280" alt="WhatsApp Image 2026-04-24 at 9 46 02 AM (1)" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/output.jpeg" />
+<img width="800" height="1100" alt="WhatsApp Image 2026-04-24 at 9 46 02 AM (1)" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/build2.jpeg" />
+<img width="800" height="1100" alt="WhatsApp Image 2026-04-24 at 9 46 02 AM (1)" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/build1.jpeg" />
+<img width="800" height="1100" alt="WhatsApp Image 2026-04-24 at 9 46 02 AM (1)" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/output.jpeg" />
 
 
 
@@ -625,7 +602,7 @@ Suggested images:
 - Accurate CORDIC implementation  
 - Efficient hardware-based processing  
 - Stable communication between system and FPGA  
-
+- AXL4-lite IP implementation
 ---
 
 ## 17.3 What Still Needs Improvement  
@@ -639,10 +616,12 @@ Suggested images:
 
 ## 17.4 What Changed From the Original Plan  
 
-`Initially, the project focused on general orientation estimation. During development, the focus shifted towards optimizing computation using FPGA-based CORDIC.`
+`Initially, the project aimed to implement the CORDIC algorithm as a packaged IP core using AXI4-Lite for communication between the processor and FPGA. This approach was intended to provide a structured and efficient hardware-software interface.`
 
- `The final system emphasizes hardware acceleration and efficient implementation rather than just basic angle calculation.`
- 
+`However, due to challenges in IP packaging and AXI4-Lite integration within the given time constraints, the approach was modified. Instead, the team utilized Vitis to develop a C-based implementation for handling data communication and processing.`
+
+`This change allowed faster integration and successful completion of the project, ensuring reliable real-time roll and pitch estimation while still demonstrating hardware acceleration using FPGA.`
+
 ---
 
 # 18. Reflection
@@ -686,7 +665,8 @@ If given more time, we would:
 - Implement a complementary or Kalman filter for improved accuracy  
 - Add graphical visualization (GUI) for better understanding  
 - Optimize FPGA design for faster computation  
-- Improve overall system robustness  
+- Improve overall system robustness
+- AXL wrapped IP for Cordic
 
 ---
 
@@ -711,10 +691,8 @@ Before submission, confirm that:
 - [x] Playtesting notes are included
 - [x] Build photos are included
 - [x] Final reflection is written
-<img width="1131" height="1600" alt="image" src="" />
 
 ---
-
 
 ---
 
