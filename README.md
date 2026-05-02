@@ -256,7 +256,7 @@ Add a sketch with labels showing:
 
 **Insert image below:**  
 `[Upload image and link here]`
-<img width="1600" height="1200" alt="image" src="https://github.com/user-attachments/assets/95637f31-b4e7-4427-a9e1-4b63fbeb0ac5" />
+<img width="1200" height="1000" alt="image" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/sketch.jpeg" />
 
 ## 6.3 Approximate Dimensions
 
