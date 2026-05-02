@@ -3,3 +3,4 @@ HDLWrapperI2C.v is the wrapper of the block design made in vivado with microblaz
 MPUData.c is the embedded C code for getting the data from the MPU6050 which is made possible through Vitis
 cordic.v is a verilog module made in vivado for testing the cordic algorithm in vivado and the cordictb.v is the modules testbench
 cordictan.v is also a verilog module made in vivado for testing the atan() function made using the cordic principles and its following testbench is the cordictantb.v
+MPUCalibwData is a file containing C code for MPU6050 calibration and for getting roll and pitch data using cordic functions implemented in C itself (includes atan() and sqrt())
