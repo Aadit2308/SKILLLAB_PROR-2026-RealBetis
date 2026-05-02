@@ -446,6 +446,8 @@ If a task was delayed, responsibilities were redistributed to ensure timely comp
 | Coding       | Shivam    | Team    |
 | Testing      | Team        | -       |
 | Documentation| Himanshu    | Aadit    |
+|git| Himanshu    | keshav    |
+
 
 # 11 hour Milestones
 
