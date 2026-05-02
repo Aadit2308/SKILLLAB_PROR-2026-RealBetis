@@ -63,10 +63,10 @@ By the final review, this README should clearly show:
 
 | Name                  | Primary Role                    | Secondary Role   | Strengths Brought to the Project |
 | --------------        | ------------------------------- | --------------   | -------------------------------- |
-| `Himanshu Rathod`     | `[Electronics / Coding / App ]` | `git`            | `Documentation, Gift of Gab `|
+| `Himanshu Rathod`     | `[Electronics / Documentation ]` | `git`            | `Documentation, Git`|
 | `Aadit Pradhan`       | `[Electronics / Fabrication]`   | `[Coding]`       | `Material Handling, Hardware`    |
 | `Shivam Sharma`       | `[Electronics / Fabrication]`   | `[Coding]`       | `Material Handling, Hardware`    |
-| `Keshavanandan Jha`   | `[Electronics / Fabrication]`   | `[documentation]`| `Material Handling, Hardware`    |
+| `Keshavanandan Jha`   | `[Electronics / Documentation]`   | `[documentation]`| `Documentation,Diagrams`    |
 
 
 ## 1.3 Project Title
@@ -103,7 +103,7 @@ List what inspired the project.
 | Source Type | Title / Link                                                        | What Inspired You                                                                         |
 | ----------- | ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
 | `[Video]`   | `https://youtu.be/m1e8IbDsIKw?si=r6b_8s5Hem0YE8sS` | `Detailed explanation of how CORDIC replaces expensive multiplications with simple bit-shifts and additions, which is essential for efficient FPGA-based hardware acceleration.`|
-|  `research paper`           |                                                                     |                                                                                           |
+|  `Research paper`           |`https://www.google.com/search?q=https://doi.org/10.1093/comjnl/bxr012 `       | `This paper provides a breakthrough for high-precision hardware by reducing the iteration count to $2n+3$ cycles for $n$-digit decimal operands through a "selection by rounding" technique.`                                                                                          |
 |             |                                                                     |                                                                                           |
 
 ## 2.2 Original Twist
@@ -234,7 +234,7 @@ The computed angles are returned to the software and displayed on a terminal. Th
 Add an early sketch of the full idea.
 
 **Insert image below:**  
-`[Upload image and link here]`
+<img width="1200" height="1000" alt="image" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/sketch.jpeg" />
 
 Example:
 
@@ -255,8 +255,8 @@ Add a sketch with labels showing:
 - output elements.
 
 **Insert image below:**  
-`[Upload image and link here]`
-<img width="1200" height="1000" alt="image" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/sketch.jpeg" />
+<img width="867" height="1156" alt="" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/block.jpeg" />
+
 
 ## 6.3 Approximate Dimensions
 
@@ -277,14 +277,14 @@ Add a sketch with labels showing:
 |------------------------|----------|----------------------------------|
 | Spartan-7 FPGA Board   | 1        | Hardware computation (CORDIC)     |
 | MPU6050                | 1        | Motion sensor                    |
-| Jumper wires           | Few      | Connections                      |
+| Jumper wires           | 4     | Connections                      |
 | USB Cable              | 1        | Power & programming              |
 
 ## 7.2 Wiring Plan
 
 Describe the main electrical connections.
 
-**sample Response:**  
+**Response:**  
 `
 The MPU6050 sensor is connected using I2C communication (SDA, SCL, VCC, GND).
 Sensor data is read externally using Vitis-based software.
@@ -297,7 +297,7 @@ Insert a hand-drawn or software-made circuit diagram.
 
 **Insert image below:**  
 `[Upload image and link here]`
-<img width="867" height="1156" alt="" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/block.jpeg" />
+<img width="867" height="1156" alt="" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/pin.jpeg" />
 
 
 ## 7.4 Power Plan
@@ -431,10 +431,11 @@ If a task was delayed, responsibilities were redistributed to ensure timely comp
 
 | Task ID | Task                    | Owner        | Status |
 |---------|-------------------------|--------------|--------|
-| T1      | MPU6050 interfacing     | Himanshu     | Done   |
+| T1      | MPU6050 interfacing     | Shivam      | Done   |
 | T2      | CORDIC implementation   | Aadit        | Done   |
 | T3      | FPGA integration        | Shivam       | Done   |
 | T4      | Testing & validation    | Team         | Done   |
+| T4      | Documentation & git    | Himanshu      | Done   |
 
 ---
 
@@ -462,7 +463,7 @@ Expected outcomes:
 - [x] Sketches made
 - [x] BOM completed
 - [x] Purchase needs identified
-- [ ] Key uncertainty identified
+- [x] Key uncertainty identified
 - [x] Basic feasibility tested
 
 ### Bi Hour 2 — Build Subsystems
@@ -495,14 +496,15 @@ Expected outcomes:
 - [x] Documentation completed
 - [x] Final build ready
 
-## 12.2  Update Log
 
-| Days   | Planned Goal   | What Actually Happened | What Changed   | Next Steps     |
-| ------ | -------------- | ---------------------- | -------------- | -------------- |
-| Day 1 | `[Write here]` | `[Write here]`         | `[Write here]` | `[Write here]` |
-| Day 2 | `[Write here]` | `[Write here]`         | `[Write here]` | `[Write here]` |
-| Day 3 | `[Write here]` | `[Write here]`         | `[Write here]` | `[Write here]` |
-| Day 4 | `[Write here]` | `[Write here]`         | `[Write here]` | `[Write here]` |
+## 12.2 Update Log 
+
+| Time Slot | Planned Goal | What Actually Happened | What Changed | Next Steps |
+|-----------|-------------|----------------------|-------------|-----------|
+| Hour 0–2 | Finalize idea, architecture, and components | Project idea finalized, CORDIC approach selected, MPU6050 setup started | Shifted from software-only to FPGA-based approach | Complete sensor interfacing |
+| Hour 2–4 | Interface MPU6050 and process data | Successfully read accelerometer data and performed normalization & fixed-point conversion | Faced minor I2C and scaling issues | Begin CORDIC implementation |
+| Hour 4–6 | Implement CORDIC and integrate FPGA | CORDIC module created in Vivado and integrated with software | Precision and communication delay observed | Optimize scaling and data transfer |
+| Hour 6–8 | Test, debug, and finalize system | Roll & pitch computed correctly, system working in real-time, documentation completed | Minor noise and latency remain | Future improvements (filtering, GUI) |
 
 ---
 
@@ -519,7 +521,8 @@ Expected outcomes:
 
 ## 13.2 Biggest Unknown Right Now
 
-The main uncertainty is ensuring correct fixed-point scaling and accurate interpretation of CORDIC output values.
+`The main uncertainty is ensuring correct fixed-point scaling and accurate interpretation of CORDIC output values.``
+
 ---
 
 # 14. Testing 
@@ -539,48 +542,52 @@ The main uncertainty is ensuring correct fixed-point scaling and accurate interp
 |------|--------|---------|--------|
 | Day 1 | Incorrect angle | Fixed scaling | Working |
 
-## 14.3 Playtesting Notes
+## 14.3 Playtesting Notes+
 
-| Tester      | What They Did                        | What Confused Them                    | What They Enjoyed                         | What You Will Change                          |
-| ----------- | ------------------------------------ | ------------------------------------- | ----------------------------------------- | --------------------------------------------- |
-| `Gopal` | `Tried navigating through obstacles` | `Some obstacles ewren't clear enough` | `Liked projection + real car interaction` | `Add a slight red highlight around obstacles` |
-
-
+NA
 ---
 
 # 15. Build Documentation
 
-## 15.1 Fabrication Process(if any)
-
-Describe how the project was physically made.
-
-Include:
-
-- cutting,
-- 3D printing,
-- assembly,
-- fastening,
-- wiring,
-- finishing,
-- revisions.
+## 15.1 Fabrication Process
 
 **Response:**  
-`The fabrication process involved designing, manufacturing, assembling, and refining both the physical structure and electronic integration of the system.`
 
-`Design (CAD Modeling):
-The initial model was created using CAD software, where components were designed based on the actual dimensions of the electronic parts. This ensured accurate fitting and minimized errors during assembly.
-Cutting (Laser Cutting):
-The designed parts were fabricated using laser cutting techniques. Sheets were cut precisely according to the CAD model to create the structural base and mounts for components.`
+The fabrication process mainly involved electronic setup, system integration, and iterative testing rather than heavy mechanical construction.
 
-`Components were fixed using adhesives and mechanical supports. Certain parts were intentionally kept modular (not permanently fixed) to allow easy replacement and modification of electronics.
-Surface Finishing:
-Some parts were sanded to smooth rough edges after cutting. Sawdust mixed with adhesive was used to fill gaps and uneven edges, improving structural finish. The final structure was then painted for better aesthetics and durability.`
+**1. Initial Setup:**  
+The Spartan-7 FPGA board was powered using a USB connection and configured using Vivado. Required constraints and bitstream were generated and uploaded to the board.
 
-`Environment Setup (Dark Room Fabrication):
-To enhance projection visibility, a controlled dark environment was created using Z-boards, paper sheets, and bedsheets. This minimized external light interference and improved projection clarity.
-Revisions and Iterations:
-Multiple adjustments were made throughout the process, including refining alignment, improving structural stability, repositioning components, and optimizing the interaction between the physical car and projected environment.`
+**2. Sensor Integration:**  
+The MPU6050 sensor was connected to the FPGA system using I2C communication lines (SDA, SCL, VCC, GND). Proper voltage levels (3.3V) were ensured to avoid damage.
 
+**3. Wiring and Connections:**  
+All connections were made using jumper wires. Care was taken to ensure stable and correct connections to avoid signal loss or noise issues.
+
+**4. Hardware Implementation:**  
+The CORDIC algorithm was designed and implemented inside the FPGA using Vivado. The hardware block was tested using simulation before deployment.
+
+**5. Software Integration:**  
+Using Vitis, software was developed to read sensor data, convert it into fixed-point format, and send it to the FPGA. UART communication was used to display results on the terminal.
+
+**6. Testing and Debugging:**  
+The system was tested step-by-step:
+- Sensor data verification  
+- Data transfer validation  
+- CORDIC output verification  
+
+Errors such as incorrect scaling, communication delay, and noise were identified and fixed.
+
+**7. Final Assembly:**  
+All components were arranged neatly on the workspace. Loose connections were secured, and the system was organized for stable operation and demonstration.
+
+**8. Iterations and Improvements:**  
+Multiple refinements were made during development, including:
+- Adjusting fixed-point scaling  
+- Improving accuracy of CORDIC output  
+- Reducing noise and instability  
+
+The final system achieved reliable real-time roll and pitch estimation.
 ## 16 Build Photos
 
 Add photos throughout the project.
