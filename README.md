@@ -297,7 +297,7 @@ Insert a hand-drawn or software-made circuit diagram.
 
 **Insert image below:**  
 `[Upload image and link here]`
-<img width="867" height="1156" alt="" src="" />
+<img width="867" height="1156" alt="" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/block.jpeg" />
 
 
 ## 7.4 Power Plan
@@ -364,7 +364,7 @@ Suggested sequence:
 - error handling.
 
 **Insert image below:**  
-<img width="1600" height="1200" alt="image" src="" />
+<img width="1600" height="1200" alt="image" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/flow.jpeg" />
 <img width="1600" height="1200" alt="image" src="" />
 
 
@@ -593,8 +593,9 @@ Suggested images:
 - mechanism test,
 - app screenshot,
 - final build.
-- <img width="960" height="1280" alt="WhatsApp Image 2026-04-24 at 9 46 02 AM (1)" src="https://github.com/user-attachments/assets/74baa570-5770-483e-be6d-d2f03386e37c" />
-
+<img width="960" height="1280" alt="WhatsApp Image 2026-04-24 at 9 46 02 AM (1)" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/build2.jpeg" />
+<img width="960" height="1280" alt="WhatsApp Image 2026-04-24 at 9 46 02 AM (1)" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/build1.jpeg" />
+<img width="960" height="1280" alt="WhatsApp Image 2026-04-24 at 9 46 02 AM (1)" src="https://github.com/Aadit2308/SKILLLAB_PROR-2026-RealBetis/blob/main/images/output.jpeg" />
 
 
 
